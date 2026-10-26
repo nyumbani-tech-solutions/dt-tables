@@ -47,6 +47,7 @@ The `resources/data-tables/` directory stores metadata for all registered DataTa
 | `settings.buttons` | Export buttons to show: `copy`, `colvis`, `excel` |
 | `settings.theme` | CSS framework: `bootstrap` or `tailwind` |
 | `settings.loader` | Optional loader configuration (see below) |
+| `settings.language` | Optional object replacing table texts for this table, e.g. `{ "emptyTable": "No customers yet" }`; keys as in `config('dt-tables.language')` |
 | `columns[].key` | **Must match** the `dtt-title` value in Blade and the array key from `handle()`. Inline tables only: `server_side` and `api` tables ignore `columns` and take their filters from the table class |
 | `columns[].search_type` | Filter type: `input`, `select`, or `none` |
 | `columns[].classes` | Optional CSS classes for the column |

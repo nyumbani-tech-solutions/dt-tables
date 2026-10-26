@@ -2,6 +2,22 @@ import { Eta } from "eta"
 import { ulid } from 'ulid'
 
 /* -----------------------------------------------------------------
+ * Keep the texts of the tables in the app's language, as the server sent them with the table
+ * ------------------------------------------------------------------
+ */
+let tableTexts = {};
+
+//  Store the texts the server sent for this page
+window.setTableLanguage = function (texts) {
+    tableTexts = texts;
+};
+
+//  Get a text by its key
+let tableText = function (key) {
+    return tableTexts[key];
+};
+
+/* -----------------------------------------------------------------
  * Create a function to clone the header so as to allow filtering
  * ------------------------------------------------------------------
  */
@@ -150,7 +166,7 @@ let createSelectFilter = function (cell, column, className, remote) {
     select.setAttribute('dtt-search-filter', column.index());
 
     //  Add a default option
-    select.add(new Option('Show All', ''));
+    select.add(new Option(tableText('showAll'), ''));
 
     //  Add an event listener to the select element
     select.addEventListener('change', function () {
@@ -209,7 +225,7 @@ let createInputFilter = function (cell, column, className, remote) {
     input.setAttribute('dtt-search-filter', column.index());
 
     //  Add a placeholder to the input element
-    input.placeholder = 'Search...';
+    input.placeholder = tableText('filterPlaceholder');
 
     //  Server-side tables send a request per search, so wait for typing to pause
     let timer;
@@ -244,17 +260,17 @@ window.showTableError = function (tableId, error) {
     if (! container) { return; }
 
     //  Define the action that reloads the page, for problems a fresh page fixes
-    let reload = { label: 'Reload page', run: () => window.location.reload() };
+    let reload = { label: tableText('reloadPage'), run: () => window.location.reload() };
 
     //  Define the action that asks for the same page again, for problems that may pass
-    let retry = { label: 'Try again', run: () => new DataTable.Api(`#${tableId}`).draw(false) };
+    let retry = { label: tableText('tryAgain'), run: () => new DataTable.Api(`#${tableId}`).draw(false) };
 
     //  Explain the failure in terms the user can act on, and offer the step that can fix it
     let problem = {
-        419: { title: 'Session expired', text: 'Your session has expired. Reload the page to continue.', action: reload },
-        401: { title: 'Sign in required', text: 'You need to sign in to see this data.', action: reload },
-        403: { title: 'Access denied', text: 'You are not allowed to see this data.', action: null },
-    }[error?.status] ?? { title: 'Could not load data', text: 'Something went wrong while loading the table.', action: retry };
+        419: { title: tableText('sessionExpiredTitle'), text: tableText('sessionExpiredText'), action: reload },
+        401: { title: tableText('signInRequiredTitle'), text: tableText('signInRequiredText'), action: reload },
+        403: { title: tableText('accessDeniedTitle'), text: tableText('accessDeniedText'), action: null },
+    }[error?.status] ?? { title: tableText('loadErrorTitle'), text: tableText('loadErrorText'), action: retry };
 
     //  Replace any earlier message
     clearTableError(tableId);
@@ -527,7 +543,7 @@ window.buttons = function(buttons, theme, title) {
         {
             extend: 'copy',
             name: 'copy',
-            text: 'Copy',
+            text: tableText('copy'),
             title: title,
             footer: false,
             className: theme.buttons,
@@ -538,7 +554,7 @@ window.buttons = function(buttons, theme, title) {
         {
             extend: 'excel',
             name: 'excel',
-            text: 'Excel',
+            text: tableText('excel'),
             filename: title,
             title: function () {
                 //  Get the current time
@@ -551,7 +567,7 @@ window.buttons = function(buttons, theme, title) {
                 const time = now.toLocaleTimeString('en-GB');
 
                 //  Return the string
-                return `${title} - Generated at ${date} ${time}`;
+                return `${title} - ${tableText('generatedAt')} ${date} ${time}`;
             },
             footer: false,
             className: theme.buttons,
@@ -581,7 +597,7 @@ window.buttons = function(buttons, theme, title) {
         {
             extend: 'colvis',
             name: 'colvis',
-            text: 'Hide Columns',
+            text: tableText('hideColumns'),
             className: theme.buttons,
             postfixButtons: ['colvisRestore'],
         }

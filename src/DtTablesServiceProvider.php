@@ -64,6 +64,9 @@ class DtTablesServiceProvider extends ServiceProvider
         //  Publish the configuration file
         $this->loadTranslationsFrom(self::path('lang'), 'dt-tables');
 
+        //  Load the Chinese translations, which an app's own lang/zh.json overrides
+        $this->loadJsonTranslationsFrom(self::path('lang'));
+
         //  Load the routes files
         $this->loadRoutes();
 

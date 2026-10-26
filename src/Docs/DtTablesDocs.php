@@ -50,6 +50,7 @@ class DtTablesDocs
             ]],
             ['title' => 'Reference', 'pages' => [
                 'configuration' => 'Configuration',
+                'languages' => 'Languages',
                 'artisan-command' => 'Artisan command',
                 'helpers' => 'Helpers',
                 'troubleshooting' => 'Troubleshooting',

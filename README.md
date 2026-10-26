@@ -44,6 +44,7 @@ For tables that should page, search and sort in the database, create it with `ph
 | `settings.behaviour.page_length` | Rows per page |
 | `themes.*` | The classes each theme gives buttons, inputs and selects |
 | `server_side` | Limits and endpoints of server-side tables |
+| `language` | Replace any table text for every table; the package ships Chinese (`lang/zh.json`); an app adds any other language, or overrides a text, in its own `lang/{code}.json` (see the Languages docs page) |
 
 ## Docs
 

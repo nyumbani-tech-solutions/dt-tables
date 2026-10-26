@@ -29,6 +29,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | DT Table Language
+    |--------------------------------------------------------------------------
+    |
+    | Every text a table shows is the English sentence run through __(), so an
+    | app translates it in its own lang/{code}.json. Replace a text for every
+    | table here, for example 'emptyTable' => 'Nothing here yet'; a table's own
+    | `language` setting beats this. The keys are listed in the docs.
+    |
+    */
+    'language' => [],
+
+    /*
+    |--------------------------------------------------------------------------
     | DT Table Server Side
     |--------------------------------------------------------------------------
     |

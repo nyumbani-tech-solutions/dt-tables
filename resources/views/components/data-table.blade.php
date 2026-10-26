@@ -37,6 +37,12 @@
     //  Get the theme options
     let configTheme = @js($theme);
 
+    //  Get the texts of the table, in the app's language, for the scripts that build filters, buttons and errors
+    let language = @js($language);
+
+    //  Share them with those scripts
+    window.setTableLanguage(language);
+
     //  Get the title of the table
     let title = @js($attributes->get('title', '*'));
 
@@ -58,7 +64,7 @@
                 className: 'top-row',
                 features: [
                     { buttons: buttons(configButtons, configTheme, title) },
-                    { search: { placeholder: 'Type to search', text: '_INPUT_' } }
+                    { search: { placeholder: language.searchPlaceholder, text: '_INPUT_' } }
                 ]
             },
             bottom: { className: 'bottom-row', features: ['info', 'paging']},            
@@ -67,12 +73,7 @@
             bottomStart: null,
             bottomEnd: null,
         },
-        language: {
-            paginate: {
-                next: 'Next',
-                previous: 'Previous'
-            }
-        },
+        language: @js($dataTablesLanguage),
         columns: columns(tableId, configColumns),
         initComplete: function () {
             //  Get the api

@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 use Illuminate\View\View;
 use InvalidArgumentException;
 use Nyumbani\DtTables\Models\DataTable as DataTableModel;
+use Nyumbani\DtTables\Support\Language;
 use Nyumbani\DtTables\Support\TableSource;
 
 class DataTable extends Component
@@ -15,6 +16,16 @@ class DataTable extends Component
      * The markup of the loader, shown before the first draw and while a page loads.
      */
     public string $loaderMarkup = '';
+
+    /**
+     * Every text the table shows, in the app's language
+     */
+    public array $language = [];
+
+    /**
+     * The same texts arranged the way DataTables reads its language option
+     */
+    public array $dataTablesLanguage = [];
 
     /**
      * Initialize a new component instance.
@@ -133,6 +144,12 @@ class DataTable extends Component
         //  Get the theme
         $this->theme = array_merge(['name' => $framework], $themeConfig);
 
+        //  Get the texts of the table in the app's language
+        $this->language = Language::lines((array) ($settings->language ?? []));
+
+        //  Arrange them for DataTables
+        $this->dataTablesLanguage = Language::forDataTables($this->language);
+
         //  Set the loader
         $this->loader = isset($settings->loader)
             ? (array) $settings->loader
@@ -181,11 +198,11 @@ class DataTable extends Component
 
         //  Add the image when one is set
         $markup = ($loader->image ?? false)
-            ? '<div class="loader-image"><img src="'.e(asset($loader->image)).'" alt="Loading..."></div>'
+            ? '<div class="loader-image"><img src="'.e(asset($loader->image)).'" alt="'.e(__('Loading...')).'"></div>'
             : '';
 
         //  Add the message and return the markup
-        return $markup.'<div class="loader-text">'.e($loader->message ?? 'Loading...').'</div>';
+        return $markup.'<div class="loader-text">'.e(__($loader->message ?? 'Loading...')).'</div>';
     }
 
     /**

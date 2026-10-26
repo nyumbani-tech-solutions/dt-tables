@@ -71,6 +71,9 @@ Controller → Table::build(...) → BaseTable pipeline → View → <x-data-tab
 - No controller `build()` call: the browser requests one page at a time and the database does the searching and sorting
 - Copy and Excel buttons are hidden for these tables, so `DtButtonTriggered` does not fire for them
 
+## Translating a table
+Every text a table shows (DataTables' interface text, filter placeholders, export buttons, error panels, the loader message) is the English sentence run through `__()`. The package ships `lang/zh.json` (Chinese works with no setup, and the app's own `lang/zh.json` wins on any key); an app adds any other language in its own `lang/{code}.json`, keyed by the English sentence, keeping DataTables' `_START_`, `_END_`, `_TOTAL_` and `_MAX_` tokens. Add a Chinese entry to the package's `lang/zh.json` whenever you add a key to `Language`. Replace a text for every table under `language` in `config/dt-tables.php`, or for one table under `settings.language` in its JSON file. Never hard-code English in the package JS: add a key to `Nyumbani\DtTables\Support\Language` and read it with `tableText()` in `config.js`. Docs: the Languages page.
+
 ## Common Pitfalls
 
 - The `id` attribute on `<x-data-table>` must match the `key` field inside `resources/data-tables/{key}.json` (and the filename itself) for column configuration to apply.
