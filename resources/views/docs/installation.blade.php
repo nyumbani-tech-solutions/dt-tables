@@ -6,13 +6,13 @@
 @section('content')
     <x-docs::section id="requirements" title="Requirements">
 <ul>
-    <li>PHP 8.1 or higher and a Laravel application.</li>
+    <li>PHP 8.3 or higher and Laravel 12 or 13.</li>
     <li>Bootstrap or Tailwind CSS on the pages that show tables. The package styles the table itself, and the theme you choose decides the classes of the buttons and filters.</li>
 </ul>
     </x-docs::section>
 
     <x-docs::section id="install-the-package" title="Install the package">
-<p>DtTables is on Packagist, so require it like any other package. Every Nyumbani app already has it, because <code>nyumbani/essentials</code> requires it.</p>
+<p>DtTables needs only Laravel, so require it like any other package.</p>
 
 <x-docs::code lang="bash" title="Terminal">
 @verbatim
@@ -20,7 +20,19 @@ composer require nyumbani/dt-tables
 @endverbatim
 </x-docs::code>
 
-<p>Laravel discovers the package automatically, so there is no service provider to register and nothing to publish.</p>
+<p>Laravel discovers the package automatically, so there is no service provider to register and nothing to import. The configuration is optional: the defaults work, so publish it only to change one.</p>
+
+<x-docs::code lang="bash" title="Terminal">
+@verbatim
+cp vendor/nyumbani/dt-tables/config/dt-tables.php config/dt-tables.php
+@endverbatim
+</x-docs::code>
+
+<p>An app that also has <code>nyumbani/essentials</code> can let <code>php artisan nyumbani:install --with=dt-tables</code> do these steps, and publish the same file with <code>php artisan vendor:publish --tag=dt-tables-config</code>.</p>
+    </x-docs::section>
+
+    <x-docs::section id="theme" title="Choose a theme">
+<p>The default theme is <code>bootstrap</code>, which suits an app that loads Bootstrap. For an app styled with Tailwind, set <code>settings.theme</code> to <code>tailwind</code> and give its <code>buttons</code>, <code>input</code> and <code>select</code> the classes your pages use. In an app with <code>nyumbani/ui</code>, <code>php artisan ui:install</code> does this for a <code>config/dt-tables.php</code> you have not changed, with the Nyumbani button and input classes, and adds the <code>@source</code> lines Tailwind needs to find them. See <a href="{{ route('docs.page', ['package' => 'nyumbani-dt-tables', 'page' => 'configuration']) }}">Configuration</a>.</p>
     </x-docs::section>
 
     <x-docs::section id="what-gets-set-up-for-you" title="What gets set up for you">
