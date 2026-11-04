@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Nyumbani\DtTables\Http\Controllers\API\ButtonTriggeredController;
 use Nyumbani\DtTables\Http\Controllers\API\ServerSideController;
-use Illuminate\Support\Facades\Route;
 
 //  Define the route for the button triggered
 Route::post('button-triggered', ButtonTriggeredController::class)->name('button-triggered');

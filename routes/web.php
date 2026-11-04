@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Nyumbani\DtTables\Http\Controllers\AssetController;
 use Nyumbani\DtTables\Http\Controllers\DataTableColumnController;
 use Nyumbani\DtTables\Http\Controllers\DataTableController;
 use Nyumbani\DtTables\Http\Controllers\HomeController;
 use Nyumbani\DtTables\Http\Middleware\PreventIfEnvironmentIsNotLocal;
-use Illuminate\Support\Facades\Route;
 
 //  Define the route for the datatable assets, which are static so they need no session or cookies
 Route::get('assets/{name}', AssetController::class)->name('asset.show')->withoutMiddleware('web');
