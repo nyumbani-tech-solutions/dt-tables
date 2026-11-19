@@ -28,7 +28,7 @@
             ['zeroRecords', 'No matching records found'],
             ['loadingRecords', 'Loading...'],
             ['processing', 'Processing...'],
-            ['first, last, next, previous', 'First, Last, Next, Previous'],
+            ['first, last, next, previous', '« » › ‹ (the first, last, next and previous icons)'],
             ['copy, excel, hideColumns, restoreColumns', 'Copy, Excel, Hide Columns, Restore'],
             ['generatedAt', 'Generated at (in the Excel title)'],
             ['reloadPage, tryAgain', 'Reload page, Try again'],
